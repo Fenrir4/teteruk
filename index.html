@@ -3,295 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ASSISTANT | BRUTAL EDITION</title>
+    <title>AI TRANSFORMATION | AESTHETIC</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #080808;
-            --text: #e0e0e0;
-            --border: 1px solid #333;
-            --blood-red: #b30000;
-            --font-main: 'Unbounded', sans-serif;
-            --font-tech: 'JetBrains Mono', monospace;
+            --bg-color: #FDFBF9;
+            --text-color: #2C2C2C;
+            --accent-burgundy: #781822;
+            --accent-soft: #F2E8E9;
+            --white: #ffffff;
+            
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Manrope', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        ::selection { background: var(--blood-red); color: #fff; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: var(--font-tech);
+        html, body {
+            width: 100%;
             overflow-x: hidden;
-            position: relative;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
             line-height: 1.6;
         }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999; opacity: 0.06;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bSBPY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==');
-        }
-
+        /* --- КОНТЕЙНЕР (Фікс відступів) --- */
         .container {
+            width: 100%;
             max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
-            border-left: var(--border);
-            border-right: var(--border);
-            background: var(--bg);
+            padding: 0 40px; /* Важливі відступи по боках */
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (Фіксований) --- */
         header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 0; border-bottom: var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 251, 249, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        .logo { font-family: var(--font-main); font-weight: 900; font-size: 1.4rem; text-transform: uppercase; color: white; }
-        .logo span { color: var(--blood-red); }
-        .nav-link { color: var(--text); text-decoration: none; font-size: 0.9rem; margin-left: 20px; text-transform: uppercase; transition: 0.3s; }
-        .nav-link:hover { color: var(--blood-red); }
 
-        /* --- HERO --- */
-        .hero {
-            padding: 100px 0; display: grid; grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px; align-items: center; border-bottom: var(--border);
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        h1 { font-family: var(--font-main); font-size: 3.8rem; line-height: 1; text-transform: uppercase; margin-bottom: 30px; color: white; }
-        .highlight-red { color: var(--blood-red); }
-        .hero-text p { font-size: 1.1rem; opacity: 0.8; max-width: 550px; margin-bottom: 40px; padding-left: 20px; border-left: 4px solid var(--blood-red); }
-        
-        .btn {
-            display: inline-block; background: #fff; color: #000;
-            font-family: var(--font-main); font-weight: 700; padding: 18px 40px;
-            text-decoration: none; text-transform: uppercase; font-size: 1rem;
-            transition: 0.2s; border: 1px solid #fff; cursor: pointer;
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: var(--accent-burgundy);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
-        .btn:hover { background: var(--blood-red); color: white; border-color: var(--blood-red); box-shadow: 0 0 20px rgba(179,0,0,0.5); }
 
-        .hero-image-wrapper { position: relative; border: 1px solid #333; padding: 10px; }
-        .brutal-img { width: 100%; display: block; filter: grayscale(100%) contrast(110%); transition: 0.5s; }
-        .hero-image-wrapper:hover .brutal-img { filter: grayscale(0%) contrast(100%); opacity: 0.9; }
-
-        /* --- TICKER --- */
-        .ticker-wrap {
-            width: 100%; overflow: hidden; background: #111; color: #fff;
-            padding: 15px 0; font-family: var(--font-main); font-weight: 800;
-            font-size: 1.2rem; white-space: nowrap; border-bottom: var(--border);
+        .nav-btn {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: 0.3s;
         }
-        .ticker-content { display: inline-block; animation: marquee 30s linear infinite; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .sep { color: var(--blood-red); margin: 0 20px; }
-
-        /* --- MODULES --- */
-        .section-title {
-            font-family: var(--font-main); font-size: 2.5rem; text-transform: uppercase;
-            padding: 60px 0 40px; text-align: center; border-bottom: var(--border);
-            color: white;
-        }
-        .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-        .module-item {
-            border-bottom: var(--border); border-right: var(--border);
-            padding: 40px; transition: 0.3s; position: relative;
-        }
-        .module-item:nth-child(even) { border-right: none; }
-        .module-item:hover { background: #0f0f0f; }
         
-        .module-num {
-            font-size: 1rem; font-family: var(--font-main); color: var(--blood-red);
-            border: 1px solid var(--blood-red); padding: 5px 10px; display: inline-block; margin-bottom: 20px;
+        .nav-btn:hover {
+            border-color: var(--accent-burgundy);
+            color: var(--accent-burgundy);
+            background: white;
         }
-        .module-title { font-family: var(--font-main); font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; color: white; }
-        .module-desc { font-size: 0.95rem; opacity: 0.7; margin-bottom: 20px; }
-        ul.topics { padding-left: 20px; }
-        ul.topics li { list-style: square; margin-bottom: 8px; opacity: 0.8; font-size: 0.9rem; }
-        ul.topics li::marker { color: var(--blood-red); }
 
-        /* --- EXPERTS --- */
-        .experts-section { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border); }
-        .expert-card { padding: 50px; border-right: var(--border); }
-        .expert-card:last-child { border-right: none; }
-        .expert-name { font-family: var(--font-main); font-size: 1.8rem; margin-bottom: 10px; color: white; }
-        .expert-role { color: var(--blood-red); font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 0.9rem; }
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 40px 0 80px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 350px;
+            padding-right: 20px;
+        }
+
+        .hero-img-container {
+            flex: 1;
+            min-width: 350px;
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3rem, 5vw, 4.8rem);
+            line-height: 1.1;
+            color: var(--accent-burgundy);
+            margin-bottom: 30px;
+        }
+
+        h1 i { font-weight: 400; font-style: italic; }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #555;
+            max-width: 480px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .btn-chic {
+            display: inline-block;
+            background-color: var(--accent-burgundy);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
+            border: 1px solid var(--accent-burgundy);
+            font-weight: 500;
+        }
+
+        .btn-chic:hover {
+            background-color: transparent;
+            color: var(--accent-burgundy);
+            transform: translateY(-2px);
+        }
+
+        .arch-photo {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            aspect-ratio: 3.5 / 4.5;
+            object-fit: cover;
+            border-radius: 250px 250px 0 0;
+            box-shadow: 20px 20px 0 var(--accent-soft);
+        }
+
+        /* --- MARQUEE --- */
+        .marquee {
+            width: 100%;
+            background: var(--accent-burgundy);
+            color: white;
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: scroll 25s linear infinite;
+            font-family: var(--font-head);
+            font-style: italic;
+            font-size: 1.2rem;
+            padding-left: 100%;
+        }
+        @keyframes scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* --- PROGRAM --- */
+        .program-section { padding: 100px 0; }
+        
+        .section-title {
+            font-family: var(--font-head);
+            font-size: 2.8rem;
+            text-align: center;
+            color: var(--accent-burgundy);
+            margin-bottom: 60px;
+        }
+
+        .accordion { width: 100%; max-width: 850px; margin: 0 auto; }
+        .accordion-item { border-bottom: 1px solid #e0e0e0; }
+        
+        .accordion-header {
+            width: 100%; background: transparent; border: none;
+            padding: 25px 0; text-align: left; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-head); font-size: 1.3rem; color: var(--text-color);
+            transition: 0.3s;
+        }
+        .accordion-header:hover { padding-left: 10px; color: var(--accent-burgundy); }
+        
+        .lesson-tag {
+            font-family: var(--font-body); font-size: 0.85rem; color: #999;
+            margin-right: 20px; display: inline-block; min-width: 30px; letter-spacing: 1px;
+        }
+
+        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .body-inner { padding: 0 0 30px 50px; }
+        .body-inner ul { list-style: none; }
+        .body-inner li { margin-bottom: 10px; color: #555; font-size: 1rem; position: relative; padding-left: 20px; }
+        .body-inner li::before { content: "✦"; color: var(--accent-burgundy); position: absolute; left: 0; font-size: 0.8rem; top: 5px; }
+
+        /* --- SPEAKERS --- */
+        .speakers-grid {
+            display: flex; flex-wrap: wrap; gap: 40px;
+            justify-content: center; margin-top: 80px;
+        }
+        .speaker-card { flex: 1; min-width: 300px; max-width: 450px; text-align: center; }
+        .speaker-img-box {
+            width: 100%; aspect-ratio: 1 / 1.3;
+            border-radius: 200px 200px 0 0; overflow: hidden; margin-bottom: 25px;
+            position: relative;
+        }
+        .speaker-photo { width: 100%; height: 100%; object-fit: cover; filter: sepia(5%) contrast(105%); }
 
         /* --- PRICING --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; padding: 60px 40px; border-bottom: var(--border); }
+        .pricing-section { background-color: var(--white); padding: 100px 0; margin-top: 80px; }
+        .pricing-grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
         .price-card {
-            border: 1px solid #333; padding: 40px; position: relative;
-            background: rgba(255,255,255,0.02); transition: 0.3s;
+            flex: 1; min-width: 320px; max-width: 500px;
+            background: var(--bg-color); padding: 50px;
+            border-radius: 30px; text-align: center; border: 1px solid transparent;
         }
-        .price-card:hover { border-color: var(--blood-red); transform: translateY(-10px); }
-        .price-title { font-family: var(--font-main); font-size: 1.5rem; color: white; margin-bottom: 10px; }
-        .price-amount { font-size: 3rem; font-family: var(--font-main); color: white; margin: 20px 0; }
-        .price-amount span { font-size: 1rem; opacity: 0.6; }
-        .check-list li { margin-bottom: 15px; display: flex; align-items: center; }
-        .check-list li::before { content: "✓"; color: var(--blood-red); margin-right: 10px; font-weight: bold; }
+        .price-card.premium {
+            background: #fff; border: 1px solid var(--accent-burgundy);
+            box-shadow: 0 15px 40px rgba(120, 24, 34, 0.08); position: relative;
+        }
+        .price-val { font-family: var(--font-head); font-size: 3rem; color: var(--accent-burgundy); margin: 20px 0; }
+        .price-list li { padding: 12px 0; border-bottom: 1px solid #eee; color: #555; }
 
-        /* --- FOOTER --- */
-        footer { padding: 50px 0; text-align: center; font-size: 0.8rem; opacity: 0.6; }
+        footer { background: var(--accent-burgundy); color: white; padding: 50px 0; text-align: center; }
 
-        /* --- ADAPTIVE --- */
-        @media (max-width: 900px) {
-            h1 { font-size: 2.2rem; }
-            .hero { grid-template-columns: 1fr; padding: 50px 0; }
-            .hero-image-wrapper { order: -1; }
-            .modules-grid, .experts-section, .pricing-grid { grid-template-columns: 1fr; }
-            .module-item, .expert-card { border-right: none; }
-            .pricing-grid { padding: 30px 20px; }
+        /* --- MOBILE ADAPTIVE --- */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero-text { padding-right: 0; }
+            .hero p { margin: 0 auto 30px; }
+            .accordion-header { font-size: 1.1rem; }
+            .container { padding: 0 20px; }
+            .arch-photo { max-height: 400px; width: auto; border-radius: 200px 200px 0 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">AI Assistant.</div>
+            <a href="#pricing" class="nav-btn">Доєднатись</a>
+        </div>
+    </header>
 
     <div class="container">
-        <header>
-            <div class="logo">AI_ASSISTANT<span>.</span>UA</div>
-            <nav>
-                <a href="#program" class="nav-link">Програма</a>
-                <a href="#pricing" class="nav-link" style="color: var(--blood-red);">Тарифи</a>
-            </nav>
-        </header>
-
         <section class="hero">
             <div class="hero-text">
-                <h1>Автоматизація з AI для <span class="highlight-red">бізнесу</span> та SMM</h1>
-                <p>Інтегруй АІ у свої рутинні завдання, щоб створювати контент швидше та якісніше. Воркшопи. Практичні туторіали. Реальні кейси.</p>
-                <a href="#pricing" class="btn">Отримати доступ</a>
+                <h1>AI-Трансформація: <br><i>Естетика</i> та <br>Система.</h1>
+                <p>Від контенту до системного маркетингу. Інтегруй штучний інтелект у свої процеси, щоб створювати візуал та тексти на рівні світових брендів.</p>
+                <a href="#pricing" class="btn-chic">Розпочати навчання</a>
             </div>
             
-            <div class="hero-image-wrapper">
-                <div style="position:absolute; top:-10px; right:-10px; background:var(--blood-red); color:white; padding:5px 10px; font-weight:bold; z-index:2;">AI POWERED</div>
-                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop" alt="AI Tech" class="brutal-img">
+            <div class="hero-img-container">
+                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1000&auto=format&fit=crop" alt="Workspace" class="arch-photo">
             </div>
         </section>
     </div>
 
-    <div class="ticker-wrap">
-        <div class="ticker-content">
-            CHAT GPT <span class="sep">///</span> MIDJOURNEY <span class="sep">///</span> CLAUDE <span class="sep">///</span> AUTOMATION <span class="sep">///</span> CONTENT PLAN <span class="sep">///</span> 
-            CHAT GPT <span class="sep">///</span> MIDJOURNEY <span class="sep">///</span> CLAUDE <span class="sep">///</span> AUTOMATION <span class="sep">///</span> CONTENT PLAN <span class="sep">///</span>
+    <div class="marquee">
+        <div class="marquee-content">
+            CONTENT AESTHETICS ✦ MARKETING STRATEGY ✦ SYSTEM ✦ ARTIFICIAL INTELLIGENCE ✦ DESIGN ✦
+            CONTENT AESTHETICS ✦ MARKETING STRATEGY ✦ SYSTEM ✦ ARTIFICIAL INTELLIGENCE ✦ DESIGN ✦
         </div>
     </div>
 
     <div class="container">
-        
-        <div id="program" class="section-title">Протокол Навчання</div>
+        <section class="program-section">
+            <h2 class="section-title">Програма Курсу</h2>
 
-        <section class="modules-grid">
-            <div class="module-item">
-                <span class="module-num">MOD 0.1</span>
-                <h3 class="module-title">Стратегія та Структура</h3>
-                <p class="module-desc">Як з хаотичної ідеї зробити чіткий план. Пріоритети та системний запуск.</p>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">01</span> SMM як система + роль AI</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Як виглядає сучасний маркетинг без хаосу</li>
+                                <li>Де саме AI підсилює SMM, а де — шкодить</li>
+                                <li>Як мислити процесами, а не контентом</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">02</span> AI-екосистема для маркетингу</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>ChatGPT, Claude, Perplexity, Copilot — чітко по задачах</li>
+                                <li>Яка звʼязка потрібна SMM і бізнесу</li>
+                                <li>Як не платити за зайве</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">03</span> Промптинг для маркетолога</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Як ставити задачі AI, щоб він думав стратегією</li>
+                                <li>Універсальні промпт-шаблони під SMM і бізнес</li>
+                                <li>Типові помилки навіть досвідчених спеціалістів</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">04</span> AI-аналіз цільової аудиторії</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Глибокі болі, тригери, сценарії купівлі</li>
+                                <li>Не “портрет”, а рішення клієнта</li>
+                                <li>Як адаптувати під різні ніші</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">05</span> УТП і позиціонування через AI</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Як AI допомагає знайти реальну відмінність</li>
+                                <li>Конкурентний аналіз без ручної роботи</li>
+                                <li>Формування сильного меседжу</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">06</span> Reels як система залучення</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>AI-генерація ідей, сценаріїв, хуків</li>
+                                <li>Логіка контент-воронок</li>
+                                <li>Як не зливати охоплення</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">07</span> Тексти і прогріви з AI</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Продаючі структури без “копірайтерської води”</li>
+                                <li>Адаптація під різні ЦА</li>
+                                <li>Швидке масштабування контенту</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">08</span> Автоматизація Instagram через AI</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Автоматичні відповіді і сценарії</li>
+                                <li>Мінімум ручної роботи</li>
+                                <li>Стабільна комунікація</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">09</span> Власний GPT-асистент</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>Створення AI під конкретні задачі</li>
+                                <li>Контент, аналіз, відповіді, ідеї</li>
+                                <li>Як працювати швидше і точніше</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <div><span class="lesson-tag">10</span> AI-масштаб і майбутнє SMM</div>
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="body-inner">
+                            <ul>
+                                <li>AI-аватари</li>
+                                <li>Вихід на іноземні ринки</li>
+                                <li>Як залишатись актуальним спеціалістом</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="module-item">
-                <span class="module-num">MOD 0.2</span>
-                <h3 class="module-title">AI Інструментарій</h3>
-                <p class="module-desc">Огляд: ChatGPT, Grok, Claude, DeepSeek, Copilot. Що обрати для бізнесу?</p>
-            </div>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-img-box">
+                        <img src="./yulia.jpg.JPG" alt="Юлія Генсіровська" class="speaker-photo">
+                    </div>
+                    <h3 style="font-family: var(--font-head); font-size:1.8rem; color:var(--accent-burgundy);">Юлія Генсіровська</h3>
+                    <p style="text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; color:#888;">Digital Strategy</p>
+                </div>
 
-            <div class="module-item">
-                <span class="module-num">MOD 0.3</span>
-                <h3 class="module-title">Мистецтво Промптингу</h3>
-                <p class="module-desc">Як ставити завдання AI, щоб отримувати ідеальний результат з першого разу.</p>
-            </div>
-
-            <div class="module-item">
-                <span class="module-num">MOD 02</span>
-                <h3 class="module-title">Аналіз ЦА через AI</h3>
-                <p class="module-desc">Створення портретів клієнтів, пошук болів та тригерів за 5 хвилин.</p>
-            </div>
-
-            <div class="module-item">
-                <span class="module-num">MOD 03</span>
-                <h3 class="module-title">УТП та Воронки</h3>
-                <p class="module-desc">Розробка унікальної пропозиції та побудова шляху клієнта (JBTD).</p>
-            </div>
-
-            <div class="module-item">
-                <span class="module-num">MOD 04</span>
-                <h3 class="module-title">E-commerce & Товарка</h3>
-                <p class="module-desc">Створення візуальних історій та креативів для товарного бізнесу.</p>
-            </div>
-
-            <div class="module-item">
-                <span class="module-num">MOD 05</span>
-                <h3 class="module-title">Автоматизація Контенту</h3>
-                <p class="module-desc">Контент-план на місяць за 1 вечір. Система замість хаосу.</p>
-            </div>
-
-            <div class="module-item">
-                <span class="module-num">MOD 06-09</span>
-                <h3 class="module-title">Генерація & Аватари</h3>
-                <ul class="topics">
-                    <li>3 види AI контенту (Фото, Відео, Презентації)</li>
-                    <li>Створення цифрового аватара</li>
-                    <li>GPT Таблиці (Google Sheets)</li>
-                    <li>Власні GPTs асистенти</li>
-                </ul>
+                <div class="speaker-card">
+                    <div class="speaker-img-box">
+                        <img src="./volodymyr.jpg.PNG" alt="Володимир Тетерук" class="speaker-photo">
+                    </div>
+                    <h3 style="font-family: var(--font-head); font-size:1.8rem; color:var(--accent-burgundy);">Володимир Тетерук</h3>
+                    <p style="text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; color:#888;">AI Specialist</p>
+                </div>
             </div>
         </section>
-
-        <div class="section-title">Архітектори Курсу</div>
-        <section class="experts-section">
-            <div class="expert-card">
-                <div class="expert-name">Володимир Тетерук</div>
-                <div class="expert-role">AI Specialist / 100+ Cases</div>
-                <p style="opacity:0.7">Співпраця з MEGOGO, LAMEL, FAMO. Навчив 100+ спеціалістів. Реалізував 150+ інтеграцій AI в бізнес.</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-name">Юлія Проскуріна</div>
-                <div class="expert-role">Founder DGTL PROS / Strategy</div>
-                <p style="opacity:0.7">З 2016 року в digital. "Розвиватися без AI вже нереально. Тобі потрібна система, а не хайп."</p>
-            </div>
-        </section>
-
-        <div id="pricing" class="section-title">Доступ до Системи</div>
-        <section class="pricing-grid">
-            <div class="price-card">
-                <h3 class="price-title">BASIC</h3>
-                <div class="price-amount">5 500 <span>UAH</span></div>
-                <ul class="check-list" style="list-style: none; margin-bottom: 30px;">
-                    <li>9 уроків у записі</li>
-                    <li>Доступ до платформи 3 місяці</li>
-                    <li>Базові промпти</li>
-                </ul>
-                <a href="https://secure.wayforpay.com/payment/sce1e3c1798ac" class="btn" style="width:100%; text-align:center;">Придбати Basic</a>
-            </div>
-
-            <div class="price-card" style="border-color: var(--blood-red);">
-                <div style="position:absolute; top:0; right:0; background:var(--blood-red); color:white; padding:5px 15px; font-size:0.8rem; font-weight:bold;">BEST CHOICE</div>
-                <h3 class="price-title">PREMIUM</h3>
-                <div class="price-amount">7 600 <span>UAH</span></div>
-                <ul class="check-list" style="list-style: none; margin-bottom: 30px;">
-                    <li>Всі уроки + Бонуси</li>
-                    <li>Доступ 6 місяців</li>
-                    <li>Чат з експертом (Володимир)</li>
-                    <li>Сертифікат про навчання</li>
-                    <li>QA сесія (Питання-Відповідь)</li>
-                </ul>
-                <a href="https://secure.wayforpay.com/payment/sc28e0ea65534" class="btn" style="width:100%; text-align:center; background:var(--blood-red); color:white; border:none;">Придбати Premium</a>
-            </div>
-        </section>
-
-        <footer>
-            <p>"Вас замінить не штучний інтелект, а люди, які його використовують."</p>
-            <br>
-            <p>© 2026 ФОП Тетерук Володимир Васильович. Всі права захищено.</p>
-        </footer>
-
     </div>
 
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Тарифи</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3 style="font-family: var(--font-head); font-size:2rem;">Basic</h3>
+                    <div class="price-val">5 500 <span style="font-size:1rem; color:#555;">UAH</span></div>
+                    <ul class="price-list" style="list-style:none; text-align:left; margin:30px 0;">
+                        <li>10 уроків у записі</li>
+                        <li>Доступ на 3 місяці</li>
+                        <li>Базові матеріали</li>
+                    </ul>
+                    <a href="https://secure.wayforpay.com/payment/sce1e3c1798ac" class="btn-chic" style="background:transparent; color:var(--accent-burgundy);">Придбати</a>
+                </div>
+
+                <div class="price-card premium">
+                    <div style="position:absolute; top:0; left:50%; transform:translate(-50%, -50%); background:var(--accent-burgundy); color:white; padding:8px 20px; border-radius:20px; font-size:0.8rem;">BEST CHOICE</div>
+                    <h3 style="font-family: var(--font-head); font-size:2rem;">Premium</h3>
+                    <div class="price-val">7 600 <span style="font-size:1rem; color:#555;">UAH</span></div>
+                    <ul class="price-list" style="list-style:none; text-align:left; margin:30px 0;">
+                        <li>Всі уроки + Бонуси</li>
+                        <li>Доступ на 6 місяців</li>
+                        <li>Чат з експертами</li>
+                        <li>Сертифікат</li>
+                    </ul>
+                    <a href="https://secure.wayforpay.com/payment/sc28e0ea65534" class="btn-chic">Придбати Premium</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Night Secret Production. Всі права захищено.</p>
+        </div>
+    </footer>
+
+    <script>
+        const headers = document.querySelectorAll('.accordion-header');
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                // Акордеон логіка
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    if (i !== item) {
+                        i.classList.remove('active');
+                        i.querySelector('.accordion-body').style.maxHeight = null;
+                    }
+                });
+                
+                item.classList.toggle('active');
+                const body = header.nextElementSibling;
+                if (body.style.maxHeight) {
+                    body.style.maxHeight = null;
+                } else {
+                    body.style.maxHeight = body.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
