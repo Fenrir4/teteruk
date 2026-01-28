@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant | Cyberpunk Edition</title>
+    <title>AI COURSE | BRUTALISM EDITION</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #050505;
-            --text-main: #e0e0e0;
-            --neon-green: #00ff41;
-            --neon-purple: #bc13fe;
-            --neon-cyan: #00f3ff;
-            --glass-bg: rgba(20, 20, 20, 0.9);
+            --bg: #080808;
+            --text: #e0e0e0;
+            --border: 1px solid #333;
+            --blood-red: #b30000; /* Темно-червоний акцент */
+            --bright-red: #ff0000;
+            
+            --font-main: 'Unbounded', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
         }
 
         * {
@@ -24,34 +27,41 @@
             padding: 0;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Share Tech Mono', monospace; /* Технічний шрифт */
-            line-height: 1.6;
-            overflow-x: hidden;
+        /* Стиль виділення тексту мишкою */
+        ::selection {
+            background: var(--blood-red);
+            color: #fff;
         }
 
-        /* --- ЕФЕКТ ФОНУ (СІТКА) --- */
-        .cyber-grid {
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .noise-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: 
-                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
+            height: 100%;
             pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bSBPY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==');
         }
 
-        /* --- КОНТЕЙНЕР --- */
         .container {
-            max-width: 1100px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
+            border-left: var(--border);
+            border-right: var(--border);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- HEADER --- */
@@ -59,242 +69,324 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--neon-green);
+            padding: 25px 0;
+            border-bottom: var(--border);
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
+            font-family: var(--font-main);
+            font-weight: 900;
             font-size: 1.5rem;
-            color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .btn-glitch {
-            background: transparent;
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            padding: 10px 20px;
-            font-family: 'Orbitron', sans-serif;
+            letter-spacing: -1px;
             text-transform: uppercase;
-            cursor: pointer;
+            color: white;
+        }
+        
+        .logo span { color: var(--blood-red); } /* Червона крапка або частина */
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 20px;
+            text-transform: uppercase;
+            padding: 5px 10px;
             transition: 0.3s;
             position: relative;
         }
 
-        .btn-glitch:hover {
-            background: var(--neon-cyan);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-cyan);
+        .nav-link:hover {
+            color: var(--blood-red);
         }
+        
+        /* Червоне підкреслення при наведенні */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--blood-red);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after { width: 100%; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            position: relative;
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
+            border-bottom: var(--border);
         }
 
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-family: var(--font-main);
+            font-size: 4.5rem;
+            line-height: 0.9;
             text-transform: uppercase;
-            position: relative;
+            margin-bottom: 30px;
             color: white;
         }
 
-        .highlight {
-            color: var(--neon-purple);
-            text-shadow: 0 0 15px var(--neon-purple);
+        .highlight-red {
+            color: var(--blood-red);
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            max-width: 500px;
             margin-bottom: 40px;
-            border-left: 3px solid var(--neon-green);
-            padding-left: 15px;
-            color: #aaa;
+            padding-left: 20px;
+            border-left: 3px solid var(--blood-red); /* Червона лінія зліва */
         }
 
-        /* --- MODULES / CARDS --- */
-        .modules {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            color: var(--neon-cyan);
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid #333;
-            padding: 30px;
-            position: relative;
-            transition: 0.3s;
-            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%); /* Скошені кути */
-        }
-
-        .card:hover {
-            border-color: var(--neon-green);
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-        }
-
-        .card h3 {
-            color: var(--neon-green);
-            margin-bottom: 15px;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .card ul {
-            list-style: none;
-        }
-
-        .card li::before {
-            content: "> ";
-            color: var(--neon-purple);
-        }
-
-        /* --- PRICING --- */
-        .price-box {
-            border: 2px solid var(--neon-purple);
-            padding: 40px;
-            text-align: center;
-            margin-top: 60px;
-            background: linear-gradient(45deg, rgba(188, 19, 254, 0.1), transparent);
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #666;
-            font-size: 1.5rem;
-        }
-
-        .new-price {
-            font-size: 4rem;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            margin: 10px 0 30px 0;
-            text-shadow: 0 0 20px var(--neon-purple);
-        }
-
-        .cta-btn {
+        /* --- КНОПКА --- */
+        .btn {
             display: inline-block;
-            background: var(--neon-green);
-            color: black;
-            font-weight: bold;
-            padding: 20px 50px;
-            font-size: 1.2rem;
+            background: #fff;
+            color: #000;
+            font-family: var(--font-main);
+            font-weight: 700;
+            padding: 18px 45px;
             text-decoration: none;
             text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            font-size: 1.1rem;
+            transition: 0.2s;
+            border: 1px solid #fff;
+        }
+
+        .btn:hover {
+            background: var(--blood-red);
+            color: white;
+            border-color: var(--blood-red);
+            box-shadow: 0 0 15px rgba(179, 0, 0, 0.4);
+        }
+
+        /* --- ФОТО --- */
+        .hero-image-wrapper {
+            position: relative;
+            border: 1px solid #333;
+            padding: 10px;
+        }
+        
+        /* Декор куточки */
+        .hero-image-wrapper::before, .hero-image-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--blood-red);
+            transition: 0.3s;
+        }
+        .hero-image-wrapper::before { top: -1px; left: -1px; border-bottom: none; border-right: none; }
+        .hero-image-wrapper::after { bottom: -1px; right: -1px; border-top: none; border-left: none; }
+
+        .brutal-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(110%) brightness(0.9);
+            transition: 0.5s;
+        }
+
+        .hero-image-wrapper:hover .brutal-img {
+            filter: grayscale(100%) sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(1.2); /* Ефект "червоного фільтра" при наведенні */
+            opacity: 0.9;
+        }
+
+        .tag {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--blood-red);
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            font-family: var(--font-main);
+            transform: rotate(3deg);
+            z-index: 2;
+        }
+
+        /* --- TICKER --- */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: #111; /* Темний фон замість білого */
+            color: #fff;
+            padding: 12px 0;
+            font-family: var(--font-main);
+            font-weight: 800;
+            font-size: 1.2rem;
+            white-space: nowrap;
+            border-bottom: var(--border);
+        }
+
+        .ticker span { margin: 0 20px; }
+        .sep { color: var(--blood-red); }
+
+        .ticker-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- MODULES --- */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .module-item {
+            border-bottom: var(--border);
+            border-right: var(--border);
+            padding: 40px;
+            transition: 0.3s;
+            position: relative;
+        }
+        
+        .module-item:nth-child(even) { border-right: none; }
+
+        .module-item:hover {
+            background: #0f0f0f;
+        }
+        
+        .module-item:hover .module-num {
+            color: var(--blood-red);
+            opacity: 1;
+        }
+
+        .module-num {
+            font-size: 3.5rem;
+            font-family: var(--font-main);
+            color: #222;
+            position: absolute;
+            top: 25px;
+            right: 25px;
             transition: 0.3s;
         }
 
-        .cta-btn:hover {
-            background: white;
-            box-shadow: 0 0 30px var(--neon-green);
+        .module-title {
+            font-family: var(--font-main);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            color: white;
         }
 
-        /* Адаптив під мобільні */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .hero { height: auto; padding: 100px 0; }
-            .grid-container { grid-template-columns: 1fr; }
+        ul li {
+            list-style: none;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        ul li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--blood-red);
+            font-weight: bold;
+        }
+
+        /* --- FOOTER & ADAPTIVE --- */
+        @media (max-width: 900px) {
+            h1 { font-size: 2.8rem; }
+            .hero { grid-template-columns: 1fr; padding: 40px 0; }
+            .hero-image-wrapper { order: -1; margin-bottom: 30px; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .module-item { border-right: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cyber-grid"></div>
+    <div class="noise-overlay"></div>
 
-    <header>
-        <div class="container">
-            <div class="logo">AI_ASSISTANT v2.0</div>
-            <button class="btn-glitch" onclick="document.querySelector('.price-box').scrollIntoView({behavior: 'smooth'})">Вхід у систему</button>
+    <div class="container">
+        <header>
+            <div class="logo">AI_LAB<span>.</span></div>
+            <nav>
+                <a href="#" class="nav-link">Програма</a>
+                <a href="#" class="nav-link">Доступ</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Система <br><span class="highlight-red">нового</span><br>покоління</h1>
+                <p>Не просто курс. Це набір алгоритмів, що замінять відділ маркетингу. SMM, Copywriting, Design — повна автономність.</p>
+                <a href="#" class="btn">Доступ до системи</a>
+            </div>
+            
+            <div class="hero-image-wrapper">
+                <div class="tag">RESTRICTED ACCESS</div>
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop" alt="User" class="brutal-img">
+            </div>
+        </section>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker-content">
+            AI ASSISTANT <span class="sep">///</span> MARKETING <span class="sep">///</span> AUTOMATION <span class="sep">///</span> NEURAL NETWORKS <span class="sep">///</span> 
+            AI ASSISTANT <span class="sep">///</span> MARKETING <span class="sep">///</span> AUTOMATION <span class="sep">///</span> NEURAL NETWORKS <span class="sep">///</span>
         </div>
-    </header>
+    </div>
 
-    <section class="hero container">
-        <h1>Стань експертом,<br>якого шукають <span class="highlight">ТОП компанії</span></h1>
-        <p>SYSTEM LOADED...<br>Забудь про творчий ступор. AI-асистент — це твоя зброя у світі маркетингу, SMM та копірайтингу. Опануй технології майбутнього вже сьогодні.</p>
-        <a href="#" class="cta-btn" onclick="document.querySelector('.price-box').scrollIntoView({behavior: 'smooth'})">Розпочати навчання</a>
-    </section>
-
-    <section class="modules container">
-        <h2 class="section-title">ЗАВАНТАЖЕННЯ МОДУЛІВ...</h2>
-        
-        <div class="grid-container">
-            <div class="card">
-                <h3>MODULE 01: INTRO</h3>
+    <div class="container">
+        <section class="modules-grid">
+            <div class="module-item">
+                <span class="module-num">01</span>
+                <h3 class="module-title">Base Protocol</h3>
                 <ul>
-                    <li>Вступ і знайомство з ШІ</li>
-                    <li>Основи промпт-інжинірингу</li>
-                    <li>Налаштування ChatGPT та Midjourney</li>
-                    <li>Безпека даних</li>
+                    <li>Реєстрація та налаштування</li>
+                    <li>Промпт-інжиніринг</li>
+                    <li>Обхід систем захисту</li>
                 </ul>
             </div>
-
-            <div class="card">
-                <h3>MODULE 02: MARKETING</h3>
+            <div class="module-item">
+                <span class="module-num">02</span>
+                <h3 class="module-title">Marketing Core</h3>
                 <ul>
-                    <li>Аналіз ЦА через ШІ</li>
-                    <li>Створення стратегій</li>
-                    <li>Автоматизація рутини</li>
-                    <li>Генерація ідей для кампаній</li>
+                    <li>Генерація стратегій</li>
+                    <li>Аналіз конкурентів</li>
+                    <li>Створення аватарів</li>
                 </ul>
             </div>
-
-            <div class="card">
-                <h3>MODULE 03: CONTENT</h3>
+            <div class="module-item">
+                <span class="module-num">03</span>
+                <h3 class="module-title">Content Gen</h3>
                 <ul>
-                    <li>Написання постів (AIDA, PAS)</li>
-                    <li>Сценарії для Reels/TikTok</li>
-                    <li>Візуальний контент у Midjourney</li>
-                    <li>Рерайт та унікалізація</li>
+                    <li>Агресивний копірайтинг</li>
+                    <li>Візуальний стиль Midjourney</li>
+                    <li>Відео-скрипти</li>
                 </ul>
             </div>
-
-            <div class="card">
-                <h3>MODULE 04: SALES & PROJ</h3>
+            <div class="module-item">
+                <span class="module-num">04</span>
+                <h3 class="module-title">Monetization</h3>
                 <ul>
-                    <li>Скрипти продажів через ШІ</li>
-                    <li>Робота з запереченнями</li>
-                    <li>Управління проектами (Bonus)</li>
-                    <li>Економічна безпека бізнесу</li>
+                    <li>Пошук вразливостей ринку</li>
+                    <li>Закриття угод</li>
+                    <li>Масштабування</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="price-box">
-            <h3>ТАРИФ "FULL ACCESS"</h3>
-            <p style="margin: 10px 0; color: #888;">Доступ до бази даних на 4 місяці + Куратор</p>
-            <div class="old-price">1840 $</div>
-            <div class="new-price">600 $</div>
-            <a href="#" class="cta-btn">ЗАБРОНЮВАТИ МІСЦЕ - 35$</a>
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 40px 0; color: #555; border-top: 1px solid #222; margin-top: 50px;">
-        <p>© 2026 AI_ASSISTANT_LAB. All systems operational.</p>
-    </footer>
+        <footer style="padding: 40px 0; text-align: center; border-top: var(--border); margin-top: auto;">
+            <p style="opacity: 0.5; font-size: 0.8rem;">© 2026 Night Secret Production <span style="color:var(--blood-red)">///</span> All systems operational.</p>
+        </footer>
+    </div>
 
 </body>
 </html>
